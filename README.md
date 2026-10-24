@@ -14,9 +14,9 @@
 
 </div>
 
-Control a **DJI Osmo Nano**, **Osmo Pocket 3** or **Osmo Action 4** from your computer over Wi-Fi: live
-view, capture modes, photo and video, exposure and format settings, camera status, and a gallery to preview
-and download your files. Runs on **Windows, macOS and Linux**.
+Control your **DJI Osmo** from your computer over Wi-Fi: live view, capture modes, photo and video, exposure
+and format settings, camera status, and a gallery to preview and download your files. Runs on **Windows,
+macOS and Linux**.
 
 > Unofficial and independent: not affiliated with, endorsed or sponsored by DJI. See [Legal](#legal).
 

@@ -1,4 +1,18 @@
+<div align="center">
+
 # Osmo Client
+
+[![Latest release](https://img.shields.io/github/v/release/luisreysan/osmo-client?style=for-the-badge&logo=github&logoColor=white&label=release&color=0a6fd1)](https://github.com/luisreysan/osmo-client/releases/latest)
+[![License: MIT](https://img.shields.io/badge/license-MIT-7a5cff?style=for-the-badge&logo=opensourceinitiative&logoColor=white)](LICENSE)
+[![Windows · macOS · Linux](https://img.shields.io/badge/runs%20on-Windows%20%C2%B7%20macOS%20%C2%B7%20Linux-2d333b?style=for-the-badge)](#requirements)
+[![Python 3.10–3.14](https://img.shields.io/badge/python-3.10%E2%80%933.14-3776ab?style=for-the-badge&logo=python&logoColor=white)](#requirements)
+<br>
+[![Tested with Osmo Nano · Pocket 3 · Action 4](https://img.shields.io/badge/tested%20with-Osmo%20Nano%20%C2%B7%20Pocket%203%20%C2%B7%20Action%204-1a8f42?style=for-the-badge)](#compatibility)
+[![Buy me a coffee](https://img.shields.io/badge/buy%20me%20a%20coffee-Ko--fi-ff5e5b?style=for-the-badge&logo=kofi&logoColor=white)](https://ko-fi.com/luisreysan)
+
+**[Features](#features)** &nbsp;·&nbsp; **[Compatibility](#compatibility)** &nbsp;·&nbsp; **[Install](#install-and-run)** &nbsp;·&nbsp; **[Webcam output](#use-the-live-view-in-other-programs)** &nbsp;·&nbsp; **[Test your camera](#test-your-camera)** &nbsp;·&nbsp; **[Troubleshooting](#troubleshooting)**
+
+</div>
 
 Control a **DJI Osmo Nano**, **Osmo Pocket 3** or **Osmo Action 4** from your computer over Wi-Fi: live
 view, capture modes, photo and video, exposure and format settings, camera status, and a gallery to preview
@@ -8,6 +22,11 @@ and download your files. Runs on **Windows, macOS and Linux**.
 
 The app runs locally and opens its page in your browser at <http://127.0.0.1:8091>.
 
+> **New in 1.7: the live view as a webcam too** (`--vcam`). The app can also send the picture to a
+> virtual camera (a v4l2loopback device on Linux, the OBS Virtual Camera on Windows and macOS), so another
+> program takes the picture while the page and its API keep the controls, all from one process. See
+> [Use the live view in other programs](#use-the-live-view-in-other-programs).
+>
 > **New in 1.6: Multiview (experimental).** Up to four cameras side by side, each with its live picture,
 > and record / stop on all of them at once. Tried with an Osmo Pocket 3 and an Osmo Nano. **1.6.2** makes
 > two cameras on a shared network much steadier (a lost command no longer freezes a camera; the Osmo
@@ -102,15 +121,37 @@ it lists its files but doesn't send them (the Gallery says so, with a button to 
 recording, photos, capture modes, status and gallery. It publishes no list of its formats, so since 1.6.5
 the app offers the Action 4's own, from its manual and the tester's camera reports: in Video 4K, 2.7K and
 1080p 16:9 and 4K and 2.7K 4:3 at 24-60 fps, plus 100-120 fps at 4K and 2.7K 16:9 and up to 240 fps at
-1080p (the rates above 60 fps are not checked yet); Low-Light, Timelapse, Hyperlapse and Slow-mo as the
-camera takes them; photos in 4:3 or 16:9. Field of view, hyperlapse speed and timelapse interval are not
-offered yet.
+1080p; Low-Light, Timelapse, Hyperlapse and Slow-mo as the camera takes them; photos in 4:3 or 16:9 (each
+one checked on the camera). Field of view, hyperlapse speed and timelapse interval are not offered yet.
 
-Other DJI Osmo cameras (Action 5 Pro/6, Pocket 4/4P) use the same protocol and may work, fully or in
-part; the commands were mapped on the Osmo Nano and the Osmo Pocket 3. The Osmo 360 is not supported.
+Every other Osmo Pocket and Osmo Action: see [Compatibility](#compatibility).
 
-Need the camera as a webcam for video calls? See the companion app,
-**[OsmoCam](https://github.com/luisreysan/osmocam)**.
+Need the camera as a webcam? Start Osmo Client with [`--vcam`](#use-the-live-view-in-other-programs),
+or use the companion app **[OsmoCam](https://github.com/luisreysan/osmocam)** (a webcam only, without
+the page).
+
+## Compatibility
+
+Every DJI Osmo Pocket and Osmo Action, and whether it works with Osmo Client. **Should work** means the camera
+connects the same way and takes the same commands as the tested ones: it should work, though some features
+may differ. Have one of them? A [camera report](https://github.com/luisreysan/osmo-client#test-your-camera)
+shows what works on it, and an [issue](https://github.com/luisreysan/osmo-client/issues) with it is very
+welcome.
+
+| Camera | Tested | Should work | Notes |
+|---|:---:|:---:|---|
+| **Osmo Nano** | ✅ | ✅ | The camera the app was built with: everything. |
+| **Osmo Pocket 3** | ✅ | ✅ | Tested with a real camera: live view, gimbal and zoom, its own formats, gallery, Multiview. |
+| Osmo Pocket 4 |  | ✅ | Live view (H.265), gimbal and zoom, its formats; not tried on a real one yet. |
+| Osmo Pocket 4P |  | ✅ | As the Pocket 4, with its 1×–12× zoom; not tried on a real one yet. |
+| Osmo Pocket 2, Osmo Pocket |  | ❌ | No built-in Wi-Fi or Bluetooth (they need an accessory), and an older connection. |
+| Osmo Action 2 |  | ✅ | Same connection as the Action 4; not tried yet. |
+| Osmo Action 3 |  | ✅ | Same connection as the Action 4; not tried yet. |
+| **Osmo Action 4** | ✅ | ✅ | Tested by [@stvdrag225](https://github.com/stvdrag225) on a Raspberry Pi 4 ([#1](https://github.com/luisreysan/osmo-client/issues/1)): live view, recording, photos, capture modes and its own format menus, gallery. Thank you! |
+| Osmo Action 5 Pro |  | ✅ | Same connection as the Action 4; not tried yet. |
+| Osmo Action 6 |  | ✅ | Same connection as the Action 4; not tried yet. |
+| Osmo Action (first model) |  | ❌ | An older connection, which the app doesn't use. |
+| Osmo 360 |  | ❌ | Not supported: WPA3-only Wi-Fi and 360° video. |
 
 ## Screenshots
 
@@ -230,8 +271,33 @@ The same on every system (`osmo-client.bat` on Windows, `sh osmo-client.sh` on m
 --no-delete               don't offer to delete files on the camera
 --report                  camera report: check the app on your camera and save a file to send
                           (see "Test your camera" below)
+--vcam                    also send the live view to a virtual camera (see below)
+--vcam-device DEVICE      v4l2loopback device for --vcam on Linux, e.g. /dev/video40 (default: the first)
 --help                    everything else
 ```
+
+### Use the live view in other programs
+
+With `--vcam` the app also sends the live view to a **virtual camera**, which other programs open like a
+webcam: a video-call app, OBS, ffmpeg, or your own page or encoder. The page and its API
+(`http://127.0.0.1:8091/api/...`) keep the controls and the status, from the same process. The picture
+is 1280×720 (a 4:3 or square live view gets black bars) at the camera's frame rate, and the page's own
+picture costs nothing extra while no page shows it. `/api/status` says which device is in use (`vcam`).
+
+- **Linux**: load v4l2loopback (on Debian, Ubuntu or Raspberry Pi OS: `sudo apt install
+  v4l2loopback-dkms`), then start the app with `--vcam`. Nothing else to install.
+
+  ```
+  sudo modprobe v4l2loopback devices=1 exclusive_caps=1 card_label="Osmo Client"
+  sh osmo-client.sh --vcam
+  ```
+
+  With several loopback devices, pick one with `--vcam-device /dev/videoN`.
+- **Windows and macOS**: it is the OBS Virtual Camera. Install [OBS Studio](https://obsproject.com/) (on
+  macOS 30 or newer: click Start Virtual Camera in it once and allow its system extension) and the
+  pyvirtualcam library in the app's Python environment. Started with `--vcam` without it, the app prints
+  the exact command; on Windows it is
+  `"%LOCALAPPDATA%\osmo-pc\venv-client\Scripts\python.exe" -m pip install pyvirtualcam`.
 
 ## Test your camera
 
@@ -340,6 +406,13 @@ The same folder holds the app's private Python environment and, under `media`, e
 list and thumbnails (so the gallery opens at once). Downloads go to the folder you choose. No
 telemetry: a camera report (`--report`) is saved as a file for you to send, never sent by the app.
 
+## Support
+
+Osmo Client is free and open source, made in my spare time. If it saves you time or money, you can buy me a
+coffee: it keeps the project going. Thank you!
+
+<a href="https://ko-fi.com/luisreysan"><img src="https://ko-fi.com/img/githubbutton_sm.svg" alt="Support me on Ko-fi" height="36"></a>
+
 ## Legal
 
 Osmo Client is an independent project, not affiliated with, endorsed or sponsored by DJI.
@@ -354,4 +427,5 @@ Third-party notices and credits: [NOTICE.md](NOTICE.md).
 
 ## License
 
-[MIT](LICENSE)
+[MIT](LICENSE). With `--vcam` on Windows and macOS the app uses pyvirtualcam (GPL-2.0), which you install
+separately; see [NOTICE.md](NOTICE.md).

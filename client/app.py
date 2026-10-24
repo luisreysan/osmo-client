@@ -74,6 +74,7 @@ class App:
     def __init__(self) -> None:
         self.state = CameraState()
         self.latest_frame = None              # av.VideoFrame for the live view stream
+        self.vcam = None                      # camlink.vcam.VirtualCamera (--vcam): the live view as a webcam
         self.frame_seq = 0
         self.last_frame = 0.0
         self.frame_cond = threading.Condition()
@@ -131,6 +132,8 @@ class App:
 
     # ---- incoming data -------------------------------------------------------------------------
     def on_frame(self, frame, _first_packet: float = 0.0) -> None:
+        if self.vcam is not None:
+            self.vcam.send(frame)
         with self.frame_cond:
             self.latest_frame = frame
             self.frame_seq += 1
@@ -652,6 +655,7 @@ class App:
         snap["video_age"] = round(time.monotonic() - self.last_frame, 1) if self.last_frame else None
         snap["link"] = self.link
         snap["recovery"] = self.recovery
+        snap["vcam"] = self.vcam.device if self.vcam is not None and self.vcam.active else None
         pocket = self.pocket_model()
         if snap.get("capture_mode") is not None:
             snap["capture_mode_name"] = cam.mode_name(snap["capture_mode"], pocket)

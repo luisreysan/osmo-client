@@ -59,3 +59,9 @@ this repository.
 | [bleak](https://github.com/hbldh/bleak) | MIT |
 | [PyAV](https://github.com/PyAV-Org/PyAV) | BSD-3-Clause; its wheels include FFmpeg libraries under their own (L)GPL licenses |
 | [Pillow](https://github.com/python-pillow/Pillow) | MIT-CMU |
+| [pyvirtualcam](https://github.com/letmaik/pyvirtualcam) | GPL-2.0; optional, not in `requirements.txt`: only for `--vcam` on Windows and macOS, installed separately by the user |
+
+Osmo Client's own code is MIT. With `--vcam` on Windows and macOS it uses pyvirtualcam (GPL-2.0) as a
+separately installed library to reach the OBS Virtual Camera; if you build a single bundled executable that
+includes pyvirtualcam, that bundle as a whole must be distributed under the terms of the GPL-2.0. On Linux
+`--vcam` writes to a v4l2loopback device (GPL-2.0, installed separately by the user) without any library.

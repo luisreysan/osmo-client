@@ -31,6 +31,7 @@ from camlink import ble, camera as cam, datalink, models, wifi
 from camlink.protocol import CAMERA_HOST
 from camlink.registry import DEFAULT_TRANSPORT, other_transport
 from camlink.util import fine_timer, log
+from camlink.vcam import VirtualCamera
 from camlink.video import VideoDecoder
 from client import report
 from client.app import App
@@ -65,6 +66,10 @@ async def run(args: argparse.Namespace) -> None:
         return
     if getattr(args, "report", False):
         report.start(app, decoder, stop)
+    if getattr(args, "vcam", False):  # opened before the camera connects: opening can take seconds
+        vcam = VirtualCamera(args.vcam_device)
+        if await asyncio.to_thread(vcam.open):
+            app.vcam = vcam
     if not args.no_browser:
         webbrowser.open(f"http://127.0.0.1:{args.port}/")
     home = args.home or wifi.current_network(args.interface)
@@ -354,6 +359,8 @@ async def run(args: argparse.Namespace) -> None:
             await own_wifi()
             with contextlib.suppress(Exception):
                 await link.close()
+        if app.vcam is not None:
+            app.vcam.close()
         log("Stopped.")
 
 
@@ -369,6 +376,11 @@ def main() -> None:
                              "settings (about ten minutes; everything is put back) and save a file to send to "
                              "the author (see the README)")
     parser.add_argument("--no-browser", action="store_true", help="don't open the page in the browser")
+    parser.add_argument("--vcam", action="store_true",
+                        help="also send the live view to a virtual camera, for other programs to use as a webcam "
+                             "(a v4l2loopback device on Linux, the OBS Virtual Camera on Windows and macOS)")
+    parser.add_argument("--vcam-device", help="v4l2loopback device for --vcam, e.g. /dev/video40 (default: the "
+                                              "first one)")
     parser.add_argument("--downloads", help="folder for files copied from the camera (default: DJI Osmo in "
                                             "your Videos folder, Movies on macOS)")
     parser.add_argument("--interface", help="Wi-Fi adapter to use: 'Wi-Fi 2' on Windows, en0 on macOS, wlan0 "

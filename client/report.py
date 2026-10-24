@@ -227,8 +227,11 @@ class Report:
         if mode in cam.PHOTO_MODES:
             before = bytes.fromhex(self.req(0x02, 0x13).get("reply", ""))
             for p in opts["photo_formats"]:
-                writes[p["label"]] = app.set_setting(0x12, bytes((p["size"], p["ratio"])))
+                result = app.set_setting(0x12, bytes((p["size"], p["ratio"])))
                 time.sleep(1.5)
+                back = self.req(0x02, 0x13).get("reply")
+                writes[p["label"]] = {"ok": result.get("ok"), "reply": result.get("reply"),
+                                      "error": result.get("error"), "read_back": back}
             if len(before) >= 3:
                 writes["restore"] = app.set_setting(0x12, before[1:3])
             return writes

@@ -123,10 +123,10 @@ POCKET3_FORMATS = {
 POCKET3_SLOWMO = [(0x10, 0x0A, 4), (0x10, 7, 4), (0x2D, 7, 4), (0x0A, 7, 4), (0x0A, 8, 8)]
 POCKET3_PHOTO_FORMATS = [(0, 1), (0, 3)]
 POCKET3_COLOR_MODES = [0x00, 0x3C, 0x3D]       # Normal, HLG, D-Log M (Video and Slow-mo)
-# The Osmo Action 4 publishes no format tables either. Its choices, from its manual and a tester's camera
-# reports: 4:3 at 4K and 2.7K only (the Nano's codes, no aspect write), Video up to 120 fps at 4K and 2.7K
-# 16:9 and 240 fps at 1080p (above 60 fps from the manual, not checked yet), Hyperlapse at 30 fps only, and
-# one photo size (about 10 MP) in 4:3 or 16:9. Slow-mo is the Nano's. "fps_by_res" overrides a mode's frame
+# The Osmo Action 4 publishes no format tables either. Its choices, from its manual, each one checked by a
+# tester's camera reports: 4:3 at 4K and 2.7K only (the Nano's codes, no aspect write), Video up to 120 fps
+# at 4K and 2.7K 16:9 and 240 fps at 1080p, Hyperlapse at 30 fps only, and one photo size (about 10 MP) in
+# 4:3 or 16:9. Slow-mo is the Nano's. "fps_by_res" overrides a mode's frame
 # rates for one resolution.
 ACTION4 = 0x0014
 _ACTION4_FAST = [1, 2, 3, 4, 5, 6, 0x0A, 7]

@@ -487,15 +487,14 @@ codes too. The slow-mo factor is in byte 4, as on the Nano. Its choices:
 | Hyperlapse | 4K, 2.7K, 1080p 16:9 | 30 (25 refused) |
 | Slow-mo | 4K, 2.7K, 1080p at 120 fps (factor 4); 1080p at 240 fps (factor 8) | |
 
-Every entry was accepted and read back, except the Video rates above 60 fps and 4K 4:3 at 60 fps, which come
-from the manual and are not checked yet.
+Every entry was accepted and read back.
 
 ### 7.3 Photo format
 
 `02/12 [size, ratio]`, read with `02/13` (photo mode only). Size `04` = L, `03` = M; ratio `00` = 4:3,
 `01` = 16:9. L 4:3 = 36 MP, L 16:9 = 31 MP, M 4:3 = 9 MP, M 16:9 = 8 MP. Osmo Pocket 3 (and 4 / 4P):
 `00 01` = 16:9, `00 03` = 1:1. The Osmo Action 4 has one size (about 10 MP) and refuses the L and M ones
-(`E3`): `00 00` = 4:3; 16:9 is taken to be `00 01`, as on the Pockets (not checked yet).
+(`E3`): `00 00` = 4:3, `00 01` = 16:9 (read back with `02/13`: `00 00 00`, `00 00 01`).
 
 ### 7.4 White balance
 

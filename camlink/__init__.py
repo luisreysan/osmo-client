@@ -14,6 +14,7 @@ Unofficial and independent; not affiliated with DJI. The protocol is described i
     camera     camera commands, setting codes and status parsers
     media      the camera's media library: listing and HTTP downloads
     lan        finding a camera that joined a shared Wi-Fi network (station mode)
+    vcam       the live view as a webcam (v4l2loopback on Linux, the OBS Virtual Camera elsewhere)
 """
 
-__version__ = "1.6.5"
+__version__ = "1.7.0"

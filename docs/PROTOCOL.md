@@ -746,8 +746,8 @@ point.
 
 ## 12. Models
 
-Model ids in the BLE advertisement (from [osmosis](https://github.com/KonradIT/osmosis)). The Osmo Nano
-and the Osmo Action 4 are tested with both apps; the Osmo Pocket 3 with Osmo Client.
+Model ids in the BLE advertisement (from [osmosis](https://github.com/KonradIT/osmosis)). The Osmo Nano,
+the Osmo Pocket 3 and the Osmo Action 4 are tested with both apps.
 
 | id | model | notes |
 |---|---|---|
@@ -758,7 +758,7 @@ and the Osmo Action 4 are tested with both apps; the Osmo Pocket 3 with Osmo Cli
 | `0x0017` | Osmo 360 | WPA3 Wi-Fi and 360° video: not supported |
 | `0x0018` | Osmo Action 6 | |
 | `0x0019` | Osmo Nano | tested |
-| `0x0020` | Osmo Pocket 3 | tested with Osmo Client: H.264 live view; gimbal, zoom, formats (7.2), gallery (9) |
+| `0x0020` | Osmo Pocket 3 | tested with both apps: H.264 live view; gimbal, zoom, formats (7.2), gallery (9) |
 | `0x0021` | Osmo Pocket 4 | H.265 live view; gimbal, zoom (12.1) |
 | `0x0022` | Osmo Pocket 4P | H.265 live view; gimbal, zoom (12.1); BLE name `OsmoPocket4P-…` |
 
